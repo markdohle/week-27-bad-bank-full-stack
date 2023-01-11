@@ -6,12 +6,13 @@ function SinglePageApplicationComponent() {
                 <UserContext.Provider
                     value={
                         {
-                            users:[
+                            user:[
                                 {
-                                    name: 'mark',
-                                    email: 'mark@mit.edu',
-                                    password: 'secret',
-                                    balance: 100
+                                    _id: 'login to your account',
+                                    name: 'login',
+                                    email: 'login',
+                                    password: 'login',
+                                    balance: 0
                                 }
                             ]
                         }
@@ -24,6 +25,10 @@ function SinglePageApplicationComponent() {
                         <Route path="/"                 exact component ={HomeComponent} />
                         <Route path="/createaccount/"   component       ={CreateAccountComponent} />
                         <Route path="/alldata/"         component       ={AllDataComponent} />
+                        <Route path="/deposit/"         component       ={DepositComponent} />
+                        <Route path="/withdraw/"        component       ={WithdrawComponent} />
+                        <Route path="/login/"           component       ={LoginComponent} />
+                        <Route path="/balance/"         component       ={BalanceComponent} />
                     </div>
                 </UserContext.Provider>
             </div>

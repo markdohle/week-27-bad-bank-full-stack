@@ -1,0 +1,10 @@
+# ignore file types
+*.log
+*.temp
+
+# ignore ALL files in a directory
+temp/
+node_modules/
+
+# All files with a name
+*test.file

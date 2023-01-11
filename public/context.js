@@ -13,7 +13,7 @@ function CardComponent(props) {
     return (
         <div
             className   ={classes()}
-            style       ={{maxwidth: "18em"}}
+            style       ={{maxwidth: "18rem"}}
         >
             <div
                 className   ="card-header"
@@ -44,4 +44,4 @@ function CardComponent(props) {
             </div>
         </div>
     );
-}
+};

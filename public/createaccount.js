@@ -10,49 +10,71 @@ button
     1. handle event
 */
 
-function CreateAccountComponent() {
-    const [show, setShow]       = React.useState(true);
-    const [status, setStatus]   = React.useState('');
 
+function CreateAccountComponent() {
+    const [show, setShow]           = React.useState(true);
+    const [status, setStatus]       = React.useState('');
 
     return(
         <CardComponent
             bgcolor ="primary"
-            header  ="Create Account"
+            header  ="Create Account Card Component"
             status  ={status}
             body    ={show ?
-                <CreateFormComponent setShow={setShow}/> :
-                <CreateMsgComponent setShow={setShow}/>
+                //setShow={setShow} allows for CreatFormComponent() to props.setShow(false) & to props.setStatus(...)
+                <CreateAccountFormComponent    setShow={setShow} setStatus={setStatus}/> :
+                <CreateAccountMsgComponent     setShow={setShow} setStatus={setStatus}/>
             }
         />
     );
 }
 
-function CreateMsgComponent(props){
+function CreateAccountMsgComponent(props){
     return(
         <>
             <h5>
-                Success
+                Success! Login to make a deposit.
             </h5>
-            <buttton
+            <button
                 type="submit"
                 className="btn btn-light"
-                onClick={() => props.setshow(true)}
+                onClick={() => props.setShow(true)} //<-------shows the blank create account form
             >Add another account
-            </buttton>
+            </button>
         </>
     );
 }
 
-function CreateFormComponent(props){
+function CreateAccountFormComponent(props){
     const [name, setName]           = React.useState('');
     const [email, setEmail]         = React.useState('');
     const [password, setPassword]   = React.useState('');
 
-    function handle(){
+    //triggered by handleCreate() to validate the input fields. For Create Account, validate name password and email. In this, just check for an empty field.
+  function validate(field, label, password){
+    if (!field) {
+        props.setStatus('Error: ' + label);
+        setTimeout(() => props.setStatus(''),3000);
+        return false;
+    }
+    if (password.length < 8) {
+        props.setStatus('Error: password requires at least 8 characters');
+        setTimeout(() => props.setStatus(''),3000);
+        return false;
+    }
+    return true;
+    }
+    
+    
+    function handleCreateAccount(){
+
+        if (!validate(name,'name', password))     return;
+        if (!validate(email,'email', password))   return;
+
         console.log(name,email,password);
-        //call to the backend route!
-        const url = `account/create/${name}/${email}/${password}`;
+        //call to the Node Express Appliocation backend route "app.get('/account/create/:name/:email/:password', function (req, res) {...})" in index.js   
+
+        const url = `account/create/${name}/${email}/${password}`;  //<------http://localhost:3000/account/create/kate/kate@mit.edu/secret
         (async () => {
             const res   = await fetch(url);
             const data  = await res.json();
@@ -99,8 +121,8 @@ function CreateFormComponent(props){
             <button
                 type        ="submit"
                 className   ="btn btn-light"
-                onClick     ={handle}
-            >Create Account
+                onClick     ={handleCreateAccount}
+            >CreateAccountFormComponent 
             </button>
         </>
     );

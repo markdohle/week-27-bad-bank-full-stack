@@ -1,9 +1,13 @@
+//Data Abstraction Layer - MongoDB
+//This backend database talks to the backend server - Nopde Express Application
+
 const MongoClient = require('mongodb').MongoClient;
 const url         = 'mongodb://localhost:27017';
 let db            = null;
  
-// connect to mongo
-MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
+
+// connect to mongo - the application is supposed to connect to the db everytime you run node index.js. The console.log message reads in the editor terminal, not the browser console.
+MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) { 
     console.log("Connected successfully to db server");
 
     // connect to myproject database
@@ -12,7 +16,7 @@ MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
 
 // create user account
 function create(name, email, password){
-    return new Promise((resolve, reject) => {    
+    return new Promise((resolve, reject) => {   //<----Database call is wrapped in a promise. Node application has the call function that returns promise  
         const collection = db.collection('users');
         const doc = {name, email, password, balance: 0};
         collection.insertOne(doc, {w:1}, function(err, result) {

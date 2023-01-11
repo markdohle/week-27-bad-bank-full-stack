@@ -32,6 +32,7 @@ NodeJS Application at the root folder to host code for the server and the connec
 
 4. Data Store
 
+
 ## Node Server
 
 Create public directory, write a node server application with server-side logic, serve the content with Express, and write placeholder routes in the server to align with the existing UI.
@@ -179,7 +180,7 @@ In this course, you’ll be focusing on NoSQL databases, as these offer the flex
 
 Use [MongoDB](https://www.mongodb.com/) as a document database and run it inside of a Docker container. Start by creating a test instance to confirm that MongoDB is working. 
 
-Step 1 - download [Robo 3T](https://robomongo.org/) which is an open-source GUI for MongoDB.
+Step 1 - download [Studio 3T](https://robomongo.org/) which is an open-source GUI for MongoDB.
 
 Step 2 - Create a Docker image named badbank.
 
@@ -261,6 +262,40 @@ function create(name, email, password) {
     });        
 }
 ```
+
+Sample MongoDB [Collection Methods](https://www.mongodb.com/docs/manual/reference/method/js-collection/)
+
+```
+//======Insert a new user======
+db.users.insertOne(
+    {
+        name: "sue"             //|-----------------
+        age: 26,                //|<-----Document
+        status: "pending"       //|-----------------
+    }
+)
+```
+```
+//=======Find users===========
+db.users.find(
+    {age: {$gt: 18}},           //<----Query criteria
+    {name: 1, address 1}        //<----Projection
+).limit(5)                      //<----Curser modifier
+```
+```
+//=======Update User Data=====
+db.users.updateMany(            //<-----Collection
+    { age: {$1t: 18}},          //<-----Update filter
+    { $set: status: "reject"}   //<-----Update action
+)
+```
+```
+//=======Delete User Data=====
+db.users.deleteMany(
+    {status: "reject"}          //<-------Use filter to delete all
+)
+```
+
 
 //=======Node Express Application==============================
 // create user accout

@@ -28,8 +28,8 @@ function NavBarComponent() {
                     <li className       ="nav-item">
                         <a
                             className       ="nav-link"
-                            href            ="#createAccount"
-                            id              ="createAccount"
+                            href            ="#createaccount"
+                            id              ="createaccount"
                             >Create Account
                         </a>
                     </li>
